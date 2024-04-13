@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Members</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: navajowhite;
+            background-image: linear-gradient(to bottom right, coral, #6b00ee);
+        }
+
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 5px;
+            box-shadow: 2px 4px 4px hotpink;
+            background-color: coral;
+            margin: 10px;
+            background-image: linear-gradient(to bottom right, coral, hotpink);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-family: Arial, sans-serif;
+            color: antiquewhite;
+            font-size: 30px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            text-shadow: 3px 3px 5px hotpink;
+            color: antiquewhite;
+        }
+
+        .card p {
+            margin-top: 0;
+            font-family: Arial, sans-serif;
+            color: antiquewhite;
+            font-weight: bold;
+        }
+
+        .card button {
+            font-family: Arial, sans-serif;
+            color: antiquewhite;
+            text-shadow: 2px 2px 4px hotpink;
+            background-color: rgba(255, 127, 80, 0.5);
+            margin-left: 90px;
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid navajowhite;
+        }
+
+        .card button:hover {
+            color: rgba(243, 215, 127, 0.75);
+        }
+    </style>
+</head>
+<body>
+<div class="title">
+    <h1>Member Overview</h1>
+</div>
+<div class="card-container">
+    <div th:each="member: ${members}">
+        <div class="card">
+            <h3 th:text="${member.getFirstName() + ' ' + member.getLastName()}"></h3>
+            <p th:text="${'Member ID: ' + member.getId()}"></p>
+            <p th:text="${'Email: ' + member.getEmail()}"></p>
+            <p th:text="${'Phone: ' + member.getPhone()}"></p>
+            <p th:text="${'Address: ' + member.getAddress().getStreet() + ', ' + member.getAddress().getPostalCode() + ' ' + member.getAddress().getCity()}"></p>
+            <p th:text="${'Birthdate: ' + member.getDateOfBirth()}"></p>
+            <a th:href="@{/admin/deletemember/{memberId}(memberId=${member.id})}">
+                <button>Delete Member</button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
